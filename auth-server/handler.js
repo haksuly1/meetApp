@@ -22,6 +22,7 @@ const credentials = {
   redirect_uris: ["https://haksuly1.github.io/meetApp/"],
   javascript_origins: ["https://haksuly1.github.io", "http://localhost:3000"],
 };
+
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
 const oAuth2Client = new google.auth.OAuth2(
   client_id,
