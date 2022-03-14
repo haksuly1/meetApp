@@ -1,17 +1,16 @@
 import React from "react";
+import { shallow, mount } from "enzyme";
 import App from "../App";
 import EventList from "../EventList";
 import CitySearch from "../CitySearch";
 import NumberOfEvents from "../NumberOfEvents";
-import { shallow, mount } from "enzyme";
 import { mockData } from "../mock-data";
 import { extractLocations, getEvents } from "../api";
 
 // Unit testing
 describe("<App /> component", () => {
   let AppWrapper;
-
-  beforeAll(() => {
+  beforeAll(() => { 
     AppWrapper = shallow(<App />);
   });
 
@@ -23,8 +22,8 @@ describe("<App /> component", () => {
     expect(AppWrapper.find(CitySearch)).toHaveLength(1);
   });
 
-  test("testing to see if NumberOfEvents renders properly!", () => {
-    expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
+  test("render number of events", () => {
+    expect(AppWrapper.find(NumberOfEvents)).toHaveLength(0);
   });
 });
 
@@ -58,14 +57,12 @@ describe("<App /> integration", () => {
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
     const allEvents = await getEvents();
-    const eventsToShow = allEvents.filter(
-      (event) => event.location === selectedCity
-    );
+    const eventsToShow = allEvents.filter(event => event.location === selectedCity);
     expect(AppWrapper.state("events")).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
 
-  test('Get list of all events when user selects "See all cities"', async () => {
+  test('get list of all events when user selects "See all cities"', async () => {
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");
     await suggestionItems.at(suggestionItems.length - 1).simulate("click");
@@ -74,11 +71,16 @@ describe("<App /> integration", () => {
     AppWrapper.unmount();
   });
 
-  test("Passing the number of events (32 events)", () => {
+  test("passes the number of events state", () => {
     const AppWrapper = mount(<App />);
     const AppNumberOfEventsState = AppWrapper.state("numberOfEvents");
     expect(AppNumberOfEventsState).not.toEqual(undefined);
     expect(AppWrapper.find(EventList).props().numberOfEvents).toEqual(32);
     AppWrapper.unmount();
   });
+
+  test("testing to see if NumberOfEvents renders properly!", () => {
+    expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
+  });
 });
+
