@@ -23,7 +23,8 @@ export const checkToken = async (accessToken) => {
 const removeQuery = () => {
   if (window.history.pushState && window.location.pathname) {
     var newurl =
-      window.location.protocol + "//" + window.location.host + window.location.pathname;
+      window.location.protocol + "//" + 
+      window.location.host + window.location.pathname;
     window.history.pushState("", "", newurl);
   } else {
     newurl = window.location.protocol + "//" + window.location.host;
@@ -58,22 +59,18 @@ export const getEvents = async () => {
     return mockData;
   }
   const token = await getAccessToken();
-
   if (token) {
     removeQuery();
-    const url =
-      "https://71l6u91k11.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + 
-      "/" + 
-      token;
+    const url = "https://71l6u91k11.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + "/" + token;
     const result = await axios.get(url);
     if (result.data) {
       var locations = extractLocations(result.data.events);
       localStorage.setItem("lastEvents", JSON.stringify(result.data));
       localStorage.setItem("locations", JSON.stringify(locations));
+    }
       NProgress.done();
       return result.data.events;
     }
-  }
   };
 
 export const getAccessToken = async () => {

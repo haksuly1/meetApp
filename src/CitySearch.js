@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class CitySearch extends Component {
   state = {
-    query: '',
+    query: "",
     suggestions: [],
     showSuggestions: undefined
   }
@@ -41,7 +41,6 @@ class CitySearch extends Component {
     });
     this.props.updateEvents(suggestion);
   }
-
 
   render() {
     return (
