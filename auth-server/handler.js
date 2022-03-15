@@ -19,8 +19,12 @@ const credentials = {
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  redirect_uris: ["https://haksuly1.github.io/meetApp/"],
-  javascript_origins: ["https://haksuly1.github.io", "http://localhost:3000"],
+  redirect_uris: ["https://haksuly1.github.io/meetApp"],
+  javascript_origins: [
+    "https://haksuly1.github.io", 
+    "http://localhost:3000",
+    "http://127.0.0.1:8080",
+  ],
 };
 
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
@@ -102,3 +106,51 @@ module.exports.getAccessToken = async (event) => {
         };
       });
   };
+
+module.exports.getCalendarEvents = async (event) => {
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  const access_token = decodeURIComponent(
+    `${event.pathParameters.access_token}`
+  );
+  oAuth2Client.setCredentials({ access_token });
+
+  return new Promise((resolve, reject) => {
+    calendar.events.list(
+      {
+        calendarId: calendar_id,
+        auth: oAuth2Client,
+        timeMin: new Date().toISOString(),
+        singleEvents: true,
+        orderBy: "startTime",
+      },
+      (error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      }
+    );
+  })
+
+    .then((results) => {
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({ events: results.data.items }),
+      };
+    })
+    .catch((err) => {
+      console.error(err);
+      return {
+        statusCode: 500,
+        body: JSON.stringify(err),
+      };
+    });
+};
