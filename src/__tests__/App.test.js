@@ -78,9 +78,10 @@ describe("<App /> integration", () => {
     expect(AppWrapper.find(EventList).props().numberOfEvents).toEqual(32);
     AppWrapper.unmount();
   });
-
+});
+/*
   test("testing to see if NumberOfEvents renders properly!", () => {
     expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
   });
 });
-
+*/
