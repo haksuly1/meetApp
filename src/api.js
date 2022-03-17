@@ -37,7 +37,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const { access_token } = await fetch(
-    "https://71l6u91k11.execute-api.eu-central-1.amazonaws.com/dev/api/token" + 
+    "https://mlzydonigl.execute-api.eu-central-1.amazonaws.com/dev/api/token" +
     "/" +
     encodeCode
   )
@@ -49,6 +49,7 @@ const getToken = async (code) => {
 
   return access_token;
 };
+
 
 //Limit the mock data to localhost
 export const getEvents = async () => {
