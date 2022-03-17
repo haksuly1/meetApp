@@ -23,7 +23,6 @@ const credentials = {
   javascript_origins: [
     "https://haksuly1.github.io", 
     "http://localhost:3000",
-    "http://127.0.0.1:8080",
   ],
 };
 
@@ -46,7 +45,6 @@ module.exports.getAuthURL = async () => {
     access_type: "offline",
     scope: SCOPES,
   });
-
   return {
     statusCode: 200,
     headers: {
