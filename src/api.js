@@ -50,7 +50,6 @@ const getToken = async (code) => {
   return access_token;
 };
 
-
 //Limit the mock data to localhost
 export const getEvents = async () => {
   NProgress.start();
