@@ -1,0 +1,133 @@
+:root {
+  --bg-color-1: rgba(0, 211, 226, 0.705);
+  --bg-color-2: rgba(0, 36, 240, 0.384);
+  --bg-color-event: rgba(255, 255, 255, 0.925);
+  --bg-color-suggestion: rgb(175, 175, 175);
+  --bg-color-suggestion-hover: white;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Abel', sans-serif;
+  font-family: 'Maven Pro', sans-serif;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--bg-color-1),
+    var(--bg-color-2)
+  );
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-attachment: fixed;
+}
+
+#App__header {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+.citySearch {
+  width: 100%;
+}
+
+.citySearch__grid,
+.number-of-events__grid {
+  margin: 5px;
+  display: grid;
+  grid-template-columns: 150px 150px;
+}
+
+.citySearch__alert,
+.number-of-events__error {
+  width: 90%;
+  font-size: 14px;
+  text-align: center;
+  margin: auto;
+  height: 2.5em;
+}
+
+.error-text {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+label {
+  width: 200px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.EventList {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  grid-row-gap: 20px;
+  justify-items: center;
+  padding: 0;
+}
+
+li {
+  border: solid black 2px;
+  border-radius: 5px;
+  padding: 10px;
+  width: 300px;
+  overflow-wrap: break-word;
+  background-color: var(--bg-color-event);
+  box-shadow: 5px 10px rgba(0, 0, 0, 0.288);
+}
+
+.suggestions > li {
+  background-color: var(--bg-color-suggestion);
+  border: none;
+  border-radius: 0;
+  width: 250px;
+}
+
+.suggestions > li:hover {
+  background-color: var(--bg-color-suggestion-hover);
+}
+
+@media only screen and (min-width: 550px) {
+  li {
+    width: 500px;
+  }
+  .citySearch__grid,
+  .number-of-events__grid {
+    width: 60%;
+    margin: auto;
+  }
+
+  .citySearch__alert,
+  .number-of-events__error {
+    width: 500px;
+    margin-left: 20%;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .EventList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  li {
+    width: 440px;
+  }
+
+  .EventList {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
