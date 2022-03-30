@@ -49,7 +49,7 @@
       const resultElement = document.getElementById("result");
       const resultLink = document.getElementById("authURL");
       const getAuthURL =
-        "https://71l6u91k11.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url";
+        "https://zjyru1fw9f.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url";
 
       //getURLElement.onclick = function
       getCodeElement.onclick = function () {
@@ -71,7 +71,7 @@
       const getAccessToken = document.getElementById("getToken");
       const accessTokenElement = document.getElementById("accessToken");
       const getToken =
-        "https://71l6u91k11.execute-api.eu-central-1.amazonaws.com/dev/api/token";
+        "https://zjyru1fw9f.execute-api.eu-central-1.amazonaws.com/dev/api/token";
 
       getAccessToken.onclick = function () {
         let code = codeValue.value;
@@ -81,6 +81,7 @@
           code = encodeURIComponent(codeValue.value);
         }
         const getTokenRequest = getToken +  "/" + code;
+        console.log(getTokenRequest);
         fetch(getTokenRequest)
           .then(function (response) {
             return response.json();
@@ -92,7 +93,7 @@
    
        const getEvents = document.getElementById("getEvents");
         const events = document.getElementById("events");
-        const getCalendarEvents = "https://71l6u91k11.execute-api.eu-central-1.amazonaws.com/dev/api/get-events";
+        const getCalendarEvents = "https://zjyru1fw9f.execute-api.eu-central-1.amazonaws.com/dev/api/get-events";
         getEvents.onclick = function () {
           const { access_token } = JSON.parse(accessTokenElement.innerText);
           const eventRequest = getCalendarEvents + "/" + access_token;
