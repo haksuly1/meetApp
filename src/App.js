@@ -9,7 +9,7 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { OfflineAlert } from './Alert';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Sector, Cell } from 'recharts';
 import { mockData } from './mock-data';
-import EventGenre from './EventGenre';
+//import EventGenre from './EventGenre';
 
 class App extends Component {
   state = {
