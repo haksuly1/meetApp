@@ -7,8 +7,7 @@ import EventList from "./EventList";
 import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from './WelcomeScreen';
-import { getEvents, extractLocations, checkToken, getAccessToken } from
-  './api';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 
 class App extends Component {
   state = {
@@ -31,7 +30,8 @@ class App extends Component {
     });
   }
 
-  componentWillUnmount() {
+  async componentWillUnmount() {
+    this.mounted = false;
     this.mounted = true;
     const accessToken = localStorage.getItem('access_token');
     const isTokenValid = (await checkToken(accessToken)).error ? false :
