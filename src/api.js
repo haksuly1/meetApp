@@ -19,6 +19,40 @@ export const checkToken = async (accessToken) => {
   return result;
 };
 
+//Limit the mock data to localhost
+export const getEvents = async () => {
+  NProgress.start();
+
+  if (window.location.href.startsWith("http://localhost")) {
+    NProgress.done();
+    return mockData;
+  }
+
+  if (!navigator.onLine) {
+    const data = localStorage.getItem("lastEvents");
+    NProgress.done();
+    return data ? JSON.parse(data).events:[];;
+  }
+
+  const token = await getAccessToken();
+  if (token) {
+    removeQuery();
+    const url = "https://zjyru1fw9f.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" +
+      "/" +
+      token;
+    const result = await axios.get(url);
+
+    if (result.data) {
+      var locations = extractLocations(result.data.events);
+      localStorage.setItem("lastEvents", JSON.stringify(result.data));
+      localStorage.setItem("locations", JSON.stringify(locations));
+    }
+    NProgress.done();
+    return result.data.events;
+  }
+};
+
+
 //Checks whether there’s a path, then build the URL with the current path 
 //(or build the URL without a path using window.history.pushState())
 const removeQuery = () => {
@@ -51,38 +85,7 @@ const getToken = async (code) => {
   return access_token;
 };
 
-//Limit the mock data to localhost
-export const getEvents = async () => {
-  NProgress.start();
 
-  if (!navigator.onLine) {
-    const data = localStorage.getItem("lastEvents");
-    NProgress.done();
-    return data ? JSON.parse(events).events : [];
-  }
-
-  if (window.location.href.startsWith("http://localhost")) {
-    NProgress.done();
-    return mockData;
-  }
-
-  const token = await getAccessToken();
-  if (token) {
-    removeQuery();
-    const url = "https://zjyru1fw9f.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + 
-    "/" + 
-    token;
-    const result = await axios.get(url);
-
-    if (result.data) {
-      var locations = extractLocations(result.data.events);
-      localStorage.setItem("lastEvents", JSON.stringify(result.data));
-      localStorage.setItem("locations", JSON.stringify(locations));
-    }
-      NProgress.done();
-      return result.data.events;
-    }
-  };
 
 export const getAccessToken = async () => {
   const accessToken = localStorage.getItem("access_token");
