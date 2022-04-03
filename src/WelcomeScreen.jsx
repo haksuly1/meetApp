@@ -27,12 +27,7 @@ function WelcomeScreen(props) {
             </button>
           </div>
         </div>
-        <a
-          href="https://haksuly1.github.io/meet/privacy.html"
-          rel="nofollow noopener"
-        >
-          Privacy policy
-        </a>
+        <a href="https://haksuly1.github.io/meetAPP/privacy.html" rel="nofollow noopener">Privacy policy</a>
       </div>
     )
     : null
