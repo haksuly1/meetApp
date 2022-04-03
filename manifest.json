@@ -21,7 +21,7 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://haksuly1.github.io/meetApp/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
