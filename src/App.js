@@ -4,7 +4,7 @@ import CitySearch from "./CitySearch";
 import EventList from "./EventList";
 import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
-//import WelcomeScreen from './WelcomeScreen';
+import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { 
   ScatterChart, 
@@ -124,7 +124,12 @@ class App extends Component {
         <div className="data-vis-wrapper">
           <EventGenre events={events} />
           <ResponsiveContainer height={400} >
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <ScatterChart margin={{ 
+              top: 20, 
+              right: 20, 
+              bottom: 20, 
+              left: 20 
+              }} >
               <CartesianGrid />
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
