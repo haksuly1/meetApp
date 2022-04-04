@@ -9,7 +9,19 @@ import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { 
+  ScatterChart, 
+  Scatter, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+Pie,
+PieChart,
+Sector,
+Cell } from 'recharts';
+import EventGenre from "./EventGenre";
 //import { mockData } from './mock-data';
 //import React, { PureComponent } from 'react';
 
@@ -26,15 +38,6 @@ class App extends Component {
         numberOfEvents: eventCount,
       });
       this.updateEvents(this.state.currentLocation, eventCount);
-    };
-
-    updateEvents = (location, eventCount = this.state.numberOfEvents) => {
-      getEvents().then((events) => {
-        const locationEvents = location === "all" ? events : events.filter((event) => event.location === location);
-        if (this.mounted) {
-          this.setState({ events: locationEvents.slice(0, eventCount), currentLocation: location, });
-        }
-      });
     };
   
     getData = () => {
@@ -85,6 +88,15 @@ class App extends Component {
     });
   }
 
+  updateEvents = (location, eventCount = this.state.numberOfEvents) => {
+    getEvents().then((events) => {
+      const locationEvents = location === "all" ? events : events.filter((event) => event.location === location);
+      if (this.mounted) {
+        this.setState({ events: locationEvents.slice(0, eventCount), currentLocation: location, });
+      }
+    });
+  };
+
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -98,7 +110,6 @@ class App extends Component {
       <div className='App'>
         <h1>Meet App</h1>
         <h4>Choose your nearest city</h4>
-
 
         {/* Other components such as CitySearch, EventList,...etc */}
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
