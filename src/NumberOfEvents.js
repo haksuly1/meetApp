@@ -20,7 +20,7 @@ class NumberOfEvents extends Component {
         numberOfEvents: number,
         infoText: ''
       });
-      this.props.updateEventNumbers(number);
+      this.props.updatenumberOfEvents(number);
     }
   };
 
