@@ -1,13 +1,10 @@
-
-
 import React, { Component } from "react";
-//import { extractLocations, getEvents } from "./api";
 import "./App.css";
 import CitySearch from "./CitySearch";
 import EventList from "./EventList";
 import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
-import WelcomeScreen from './WelcomeScreen';
+//import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { 
   ScatterChart, 
@@ -20,7 +17,7 @@ import {
 Pie,
 PieChart,
 Sector,
-Cell } from 'recharts';
+Cell } from "recharts";
 import EventGenre from "./EventGenre";
 //import { mockData } from './mock-data';
 //import React, { PureComponent } from 'react';
@@ -33,6 +30,16 @@ class App extends Component {
     currentLocation: "all",
     //showWelcomeScreen: undefined
   }
+
+  updateEvents = (location, eventCount = this.state.numberOfEvents) => {
+    getEvents().then((events) => {
+      const locationEvents = location === "all" ? events : events.filter((event) => event.location === location);
+      if (this.mounted) {
+        this.setState({ events: locationEvents.slice(0, eventCount), currentLocation: location, });
+      }
+    });
+  };
+
     updateNumberOfEvents = (eventCount) => {
       this.setState({
         numberOfEvents: eventCount,
@@ -52,7 +59,6 @@ class App extends Component {
 
   async componentDidMount() {
     this.mounted = true;
-
     const accessToken = localStorage.getItem('access_token');
     const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     const searchParams = new URLSearchParams(window.location.search);
@@ -88,15 +94,6 @@ class App extends Component {
     });
   }
 
-  updateEvents = (location, eventCount = this.state.numberOfEvents) => {
-    getEvents().then((events) => {
-      const locationEvents = location === "all" ? events : events.filter((event) => event.location === location);
-      if (this.mounted) {
-        this.setState({ events: locationEvents.slice(0, eventCount), currentLocation: location, });
-      }
-    });
-  };
-
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -121,6 +118,8 @@ class App extends Component {
         />
         <NumberOfEvents updateEvents={this.updateEvents} 
         numberOfEvents={numberOfEvents} /> 
+
+        <h4>Events in each city</h4>
 
         <div className="data-vis-wrapper">
           <EventGenre events={events} />
