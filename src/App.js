@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import "./App.css";
 import CitySearch from "./CitySearch";
 import EventList from "./EventList";
-import Event from "./Event";
+//import Event from "./Event";
 import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
+import EventGenre from "./EventGenre";
 import { 
   ScatterChart, 
   Scatter, 
@@ -15,11 +16,8 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer,
-Pie,
-PieChart,
-Sector,
-Cell } from "recharts";
-import EventGenre from "./EventGenre";
+   } from "recharts";
+
 //import { mockData } from './mock-data';
 //import React, { PureComponent } from 'react';
 
@@ -32,6 +30,18 @@ class App extends Component {
     //showWelcomeScreen: undefined
   }
 
+  updateEvents = (location) => {
+    getEvents().then((events) => {
+      const locationEvents = (location === 'all') ? events : events.filter((event) => event.location === location);
+      const shownEvents = locationEvents.slice(0, this.state.numberOfEvents);
+      this.setState({
+        events: shownEvents,
+        currentLocation: location
+      });
+    });
+  }
+
+/*
   updateEvents = (location, eventCount = this.state.numberOfEvents) => {
     getEvents().then((events) => {
       const locationEvents = location === "all" ? events : events.filter((event) => event.location === location);
@@ -40,14 +50,27 @@ class App extends Component {
       }
     });
   };
+*/
 
+  updateNumberOfEvents = (number) => {
+    const newNum = number;
+    this.setState({
+      numberOfEvents: newNum
+    });
+    this.updateEvents(this.state.currentLocation);
+  };
+
+
+/*
     updateNumberOfEvents = (eventCount) => {
       this.setState({
         numberOfEvents: eventCount,
       });
       this.updateEvents(this.state.currentLocation, eventCount);
     };
-  
+  */
+
+
     getData = () => {
       const { locations, events } = this.state;
       const data = locations.map((location) => {
@@ -122,7 +145,7 @@ class App extends Component {
         <h4>Events in each city</h4>
 
         <div className="data-vis-wrapper">
-          <EventGenre events={Event} />
+          <EventGenre events={events} />
           <ResponsiveContainer height={400} >
             <ScatterChart margin={{ 
               top: 20, 
