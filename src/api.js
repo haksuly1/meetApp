@@ -15,7 +15,6 @@ export const checkToken = async (accessToken) => {
   )
     .then((res) => res.json())
     .catch((error) => error.json());
-
   return result;
 };
 
@@ -84,8 +83,6 @@ const getToken = async (code) => {
 
   return access_token;
 };
-
-
 
 export const getAccessToken = async () => {
   const accessToken = localStorage.getItem("access_token");
