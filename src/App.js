@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import CitySearch from "./CitySearch";
 import EventList from "./EventList";
+import Event from "./Event";
 import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from './WelcomeScreen';
@@ -73,7 +74,6 @@ class App extends Component {
       });
     }
 
-
     if (!navigator.onLine) {
       this.setState({
         OfflineAlertText: 'You are not connected to the internet'
@@ -122,7 +122,7 @@ class App extends Component {
         <h4>Events in each city</h4>
 
         <div className="data-vis-wrapper">
-          <EventGenre Events={events} />
+          <EventGenre events={Event} />
           <ResponsiveContainer height={400} >
             <ScatterChart margin={{ 
               top: 20, 
@@ -139,7 +139,6 @@ class App extends Component {
         </ResponsiveContainer>
         </div>
         <EventList events={this.state.events} />
-        {/*<EventList events={this.state.events} />*/}
           {/*<WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}*/}
       </div>
     );
