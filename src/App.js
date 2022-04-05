@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import CitySearch from "./CitySearch";
 import EventList from "./EventList";
-//import Event from "./Event";
 import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from './WelcomeScreen';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
+//import { mockData } from './mock-data';
 import EventGenre from "./EventGenre";
 import { 
   ScatterChart, 
@@ -15,11 +15,8 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  ResponsiveContainer,
-   } from "recharts";
-
-//import { mockData } from './mock-data';
-//import React, { PureComponent } from 'react';
+  ResponsiveContainer 
+} from "recharts";
 
 class App extends Component {
   state = {
@@ -27,7 +24,7 @@ class App extends Component {
     locations: [],
     numberOfEvents: 32,
     currentLocation: "all",
-    //showWelcomeScreen: undefined
+    showWelcomeScreen: undefined
   }
 
   updateEvents = (location) => {
