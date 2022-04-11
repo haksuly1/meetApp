@@ -4,7 +4,7 @@ import EventList from "./EventList";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from './WelcomeScreen';
 import { InfoAlert } from './Alert';
-import { extractLocations, getEvents, checkToken, getAccessToken } from './api';
+import { extractLocations, getEvents, checkToken, getAccessToken } from "./api";
 import EventGenre from "./EventGenre";
 import "./nprogress.css";
 import "./App.css";
